@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Last Supper — Cultured Meat, Delivered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #F8F4EE;
+    --ivory: #F2EDE4;
+    --parchment: #E8DFD0;
+    --deep-green: #1C3528;
+    --sage: #4A7C59;
+    --sage-light: #8AB49A;
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --charcoal: #2A2A2A;
+    --mid-grey: #6B6B6B;
+    --light-grey: #B0A898;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: .4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(248, 244, 238, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    animation: slideDown .8s ease both;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    color: var(--deep-green);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    text-decoration: none;
+    transition: color .25s;
+  }
+
+  .nav-links a:hover { color: var(--deep-green); }
+
+  .nav-cta {
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .65rem 1.6rem;
+    border: 1px solid var(--gold);
+    color: var(--deep-green);
+    background: transparent;
+    cursor: pointer;
+    transition: all .25s;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 6rem;
+    position: relative;
+    z-index: 2;
+    animation: fadeUp .9s .3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--deep-green);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--mid-grey);
+    max-width: 440px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions { display: flex; align-items: center; gap: 2rem; }
+
+  .btn-primary {
+    padding: 1rem 2.4rem;
+    background: var(--deep-green);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--sage);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+
+  .btn-primary:hover::after { transform: scaleX(1); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-link {
+    font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--mid-grey); text-decoration: none;
+    display: flex; align-items: center; gap: .5rem;
+    transition: color .25s;
+  }
+
+  .btn-link:hover { color: var(--deep-green); }
+  .btn-link svg { transition: transform .25s; }
+  .btn-link:hover svg { transform: translateX(4px); }
+
+  .hero-right {
+    position: relative;
+    background: var(--deep-green);
+    overflow: hidden;
+    animation: fadeIn 1.2s .5s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .hero-visual {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .petri-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 3rem;
+    opacity: .7;
+  }
+
+  .petri {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .petri:nth-child(odd) { animation-delay: 1.5s; }
+  .petri:nth-child(3n) { animation-delay: .8s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: .6; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
+  .petri-inner {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+      rgba(74,124,89,.8), rgba(28,53,40,.4));
+    border: 1px solid rgba(138,180,154,.4);
+  }
+
+  .petri.gold .petri-inner {
+    background: radial-gradient(circle at 35% 35%,
+      rgba(201,168,76,.6), rgba(100,80,20,.4));
+    border-color: rgba(201,168,76,.4);
+  }
+
+  .petri.light .petri-inner {
+    background: radial-gradient(circle at 35% 35%,
+      rgba(138,180,154,.5), rgba(74,124,89,.3));
+  }
+
+  .hero-right-label {
+    position: absolute; bottom: 2.5rem; left: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 300;
+    color: rgba(248,244,238,.06);
+    letter-spacing: .02em;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .hero-stat-bar {
+    position: absolute; right: 3rem; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 2rem;
+    align-items: flex-end;
+  }
+
+  .hero-stat {
+    text-align: right;
+    border-right: 2px solid rgba(201,168,76,.4);
+    padding-right: 1rem;
+  }
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 500;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(248,244,238,.45);
+    margin-top: .3rem;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--deep-green);
+    padding: .85rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(201,168,76,.15);
+    border-bottom: 1px solid rgba(201,168,76,.15);
+  }
+
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(201,168,76,.7);
+    white-space: nowrap;
+    padding: 0 2.5rem;
+  }
+
+  .marquee-dot {
+    color: var(--gold);
+    padding: 0 .5rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; }
+
+  .section-label {
+    font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center; gap: .8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.12;
+    color: var(--deep-green);
+  }
+
+  .section-title em { font-style: italic; color: var(--sage); }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    padding: 7rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    background: var(--ivory);
+  }
+
+  .intro-left {}
+
+  .intro-body {
+    font-size: 1rem; line-height: 1.85;
+    color: var(--mid-grey);
+    margin-top: 2rem;
+  }
+
+  .intro-body p + p { margin-top: 1.2rem; }
+
+  .intro-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--parchment);
+    border: 1px solid var(--parchment);
+  }
+
+  .intro-card {
+    background: var(--cream);
+    padding: 2.5rem 2rem;
+    transition: background .3s;
+  }
+
+  .intro-card:hover { background: var(--ivory); }
+
+  .intro-card-icon {
+    font-size: 2rem; margin-bottom: 1rem;
+  }
+
+  .intro-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 500;
+    color: var(--deep-green);
+    margin-bottom: .6rem;
+  }
+
+  .intro-card-text {
+    font-size: .85rem; line-height: 1.7;
+    color: var(--mid-grey);
+  }
+
+  /* ── SCIENCE ── */
+  .science {
+    padding: 8rem 6rem;
+    background: var(--deep-green);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .science::before {
+    content: 'SCIENCE';
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem; font-weight: 300;
+    color: rgba(248,244,238,.03);
+    letter-spacing: .1em;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .science .section-label { color: rgba(201,168,76,.8); }
+  .science .section-label::before { background: rgba(201,168,76,.8); }
+
+  .science .section-title { color: var(--cream); }
+  .science .section-title em { color: var(--sage-light); }
+
+  .science-intro {
+    font-size: 1.05rem; line-height: 1.85;
+    color: rgba(248,244,238,.6);
+    max-width: 600px;
+    margin-top: 1.5rem;
+  }
+
+  .science-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 5rem;
+    position: relative;
+  }
+
+  .science-steps::before {
+    content: '';
+    position: absolute; top: 3rem; left: calc(12.5% + 1rem);
+    right: calc(12.5% + 1rem); height: 1px;
+    background: linear-gradient(to right,
+      rgba(201,168,76,.5), rgba(201,168,76,.15));
+  }
+
+  .step {
+    padding: 0 2rem 2rem;
+    position: relative;
+  }
+
+  .step-num {
+    width: 4rem; height: 4rem;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.5);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    background: var(--deep-green);
+    position: relative; z-index: 1;
+    transition: all .3s;
+  }
+
+  .step:hover .step-num {
+    background: var(--gold);
+    color: var(--deep-green);
+    transform: scale(1.1);
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 500;
+    color: var(--cream);
+    margin-bottom: .8rem;
+  }
+
+  .step-text {
+    font-size: .85rem; line-height: 1.7;
+    color: rgba(248,244,238,.5);
+  }
+
+  /* ── PLANET ── */
+  .planet {
+    padding: 8rem 6rem;
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .planet-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .planet-ring {
+    position: relative;
+    width: 340px; height: 340px;
+  }
+
+  .planet-ring svg {
+    position: absolute; inset: 0;
+    animation: spin 20s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .planet-ring svg:nth-child(2) {
+    animation-direction: reverse;
+    animation-duration: 14s;
+  }
+
+  .planet-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+
+  .planet-big-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem; font-weight: 300;
+    color: var(--deep-green);
+    line-height: 1;
+  }
+
+  .planet-big-label {
+    font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    margin-top: .3rem;
+  }
+
+  .planet-right {}
+
+  .stat-rows { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1px; }
+
+  .stat-row {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .stat-row-label {
+    font-size: .9rem; color: var(--charcoal);
+  }
+
+  .stat-row-label span {
+    display: block; font-size: .76rem;
+    color: var(--mid-grey); margin-top: .2rem;
+  }
+
+  .stat-bar-wrap {
+    display: flex; align-items: center; gap: .8rem; min-width: 180px;
+  }
+
+  .stat-bar-track {
+    flex: 1; height: 4px; background: var(--parchment); border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(to right, var(--sage), var(--deep-green));
+    transform-origin: left;
+    animation: barGrow 1.2s .5s ease both;
+  }
+
+  @keyframes barGrow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .stat-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 500;
+    color: var(--deep-green);
+    min-width: 3.5rem; text-align: right;
+  }
+
+  /* ── QUOTE ── */
+  .quote-band {
+    padding: 5rem 6rem;
+    background: var(--sage);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+
+  .quote-band::before, .quote-band::after {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20rem; font-weight: 300;
+    color: rgba(255,255,255,.06);
+    position: absolute; line-height: 1;
+    top: -2rem;
+  }
+
+  .quote-band::before { left: 1rem; }
+  .quote-band::after { right: 1rem; content: '"'; top: auto; bottom: -4rem; }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: 300; font-style: italic;
+    color: white;
+    line-height: 1.45;
+    max-width: 800px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .quote-attr {
+    margin-top: 1.5rem;
+    font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    position: relative; z-index: 1;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 8rem 6rem;
+    background: var(--ivory);
+  }
+
+  .how-header { max-width: 580px; margin-bottom: 5rem; }
+
+  .how-body {
+    font-size: 1rem; line-height: 1.8;
+    color: var(--mid-grey); margin-top: 1.5rem;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--parchment);
+  }
+
+  .how-step {
+    background: var(--ivory);
+    padding: 3rem 2.5rem;
+    transition: background .3s;
+    cursor: default;
+  }
+
+  .how-step:hover { background: var(--cream); }
+
+  .how-step-tag {
+    font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+  }
+
+  .how-step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 500;
+    color: var(--deep-green); margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .how-step-text {
+    font-size: .88rem; line-height: 1.75;
+    color: var(--mid-grey);
+  }
+
+  .how-step-icon {
+    font-size: 2.2rem; margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  /* ── CELLS EXPLAINER ── */
+  .cells {
+    padding: 8rem 6rem;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+
+  .cells-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 6rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .cells-items { display: flex; flex-direction: column; gap: 0; }
+
+  .cell-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--parchment);
+    cursor: pointer;
+    transition: all .25s;
+  }
+
+  .cell-item:first-child { border-top: 1px solid var(--parchment); }
+
+  .cell-item-head {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .cell-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 500;
+    color: var(--deep-green);
+    transition: color .25s;
+  }
+
+  .cell-item:hover .cell-item-name { color: var(--sage); }
+
+  .cell-item-arrow {
+    color: var(--gold); font-size: 1.2rem;
+    transition: transform .25s;
+  }
+
+  .cell-item:hover .cell-item-arrow { transform: rotate(45deg); }
+
+  .cell-item-desc {
+    font-size: .88rem; line-height: 1.75;
+    color: var(--mid-grey); margin-top: .8rem;
+  }
+
+  .cells-diagram {
+    position: sticky; top: 6rem;
+    background: var(--deep-green);
+    padding: 3rem;
+    min-height: 420px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+
+  .diagram-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(201,168,76,.7); margin-bottom: 2rem;
+  }
+
+  .diagram-stages {
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .diagram-stage {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    position: relative;
+  }
+
+  .d-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0;
+    transition: all .3s;
+  }
+
+  .diagram-stage:hover .d-dot {
+    transform: scale(1.6);
+    box-shadow: 0 0 0 4px rgba(201,168,76,.2);
+  }
+
+  .d-label {
+    font-size: .78rem; letter-spacing: .08em;
+    color: rgba(248,244,238,.55);
+    flex: 1;
+  }
+
+  .d-metric {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 300;
+    color: var(--sage-light);
+  }
+
+  .d-bar-full {
+    position: absolute; left: 2rem; right: 0; bottom: 0;
+    height: 1px; background: rgba(74,124,89,.0);
+  }
+
+  /* ── ORDER ── */
+  .order {
+    padding: 8rem 6rem;
+    background: var(--deep-green);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+
+  .order::before {
+    content: '';
+    position: absolute;
+    top: -150px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,124,89,.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .order .section-label { justify-content: center; }
+  .order .section-title { color: var(--cream); text-align: center; }
+  .order .section-title em { color: var(--sage-light); }
+
+  .order-sub {
+    font-size: 1rem; line-height: 1.85;
+    color: rgba(248,244,238,.55);
+    max-width: 560px; margin: 1.5rem auto 3rem;
+  }
+
+  .order-kits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,.05);
+    margin: 4rem 0;
+    text-align: left;
+  }
+
+  .kit {
+    background: rgba(28,53,40,.6);
+    padding: 2.5rem;
+    transition: background .3s;
+  }
+
+  .kit:hover { background: rgba(74,124,89,.2); }
+
+  .kit-tier {
+    font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+
+  .kit-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300;
+    color: var(--cream); margin-bottom: .5rem; line-height: 1;
+  }
+
+  .kit-tagline {
+    font-size: .82rem; color: rgba(248,244,238,.4);
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .kit-features {
+    list-style: none; display: flex; flex-direction: column; gap: .6rem;
+  }
+
+  .kit-features li {
+    font-size: .82rem; color: rgba(248,244,238,.6);
+    display: flex; align-items: flex-start; gap: .7rem;
+  }
+
+  .kit-features li::before {
+    content: '—'; color: var(--gold); flex-shrink: 0;
+  }
+
+  .kit-price {
+    margin-top: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300;
+    color: var(--gold-light);
+  }
+
+  .kit-price span {
+    font-size: 1rem; color: rgba(248,244,238,.4);
+    font-family: 'DM Sans', sans-serif; font-weight: 300;
+  }
+
+  .order-cta-row {
+    display: flex; align-items: center; justify-content: center; gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .btn-ghost {
+    padding: 1rem 2.4rem;
+    border: 1px solid rgba(201,168,76,.5);
+    color: var(--gold-light);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer; transition: all .3s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,.1);
+  }
+
+  /* ── FAQ ── */
+  .faq {
+    padding: 8rem 6rem;
+    background: var(--ivory);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .faq-left { position: sticky; top: 6rem; }
+
+  .faq-body {
+    font-size: .95rem; line-height: 1.8;
+    color: var(--mid-grey); margin-top: 1.5rem;
+  }
+
+  .faq-items { display: flex; flex-direction: column; gap: 0; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--parchment);
+    overflow: hidden;
+  }
+
+  .faq-item:first-child { border-top: 1px solid var(--parchment); }
+
+  .faq-q {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.6rem 0; cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 500;
+    color: var(--deep-green);
+    gap: 1rem;
+    transition: color .25s;
+  }
+
+  .faq-q:hover { color: var(--sage); }
+
+  .faq-toggle {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--parchment);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1.1rem; color: var(--gold);
+    transition: all .3s;
+  }
+
+  .faq-item.open .faq-toggle {
+    transform: rotate(45deg);
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+  }
+
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height .4s ease, padding .3s ease;
+    font-size: .9rem; line-height: 1.8; color: var(--mid-grey);
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    padding: 4rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3rem;
+    border-top: 1px solid rgba(201,168,76,.15);
+  }
+
+  .footer-brand {}
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500;
+    color: var(--cream); letter-spacing: .06em;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: .8rem; color: rgba(248,244,238,.35);
+    margin-top: .6rem; line-height: 1.6;
+  }
+
+  .footer-col-title {
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+
+  .footer-links a {
+    font-size: .85rem; color: rgba(248,244,238,.4);
+    text-decoration: none; transition: color .25s;
+  }
+
+  .footer-links a:hover { color: rgba(248,244,238,.8); }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding-top: 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-size: .78rem; color: rgba(248,244,238,.25);
+  }
+
+  .footer-disclaimer {
+    font-size: .72rem; color: rgba(248,244,238,.2);
+    max-width: 400px; text-align: right; line-height: 1.6;
+  }
+
+  /* ── SCROLL REVEALS ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 2.5rem 4rem; }
+    .hero-right { min-height: 360px; }
+    .intro-strip, .planet, .faq { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2.5rem; }
+    .science, .how, .cells, .order { padding: 5rem 2.5rem; }
+    .science-steps, .how-steps, .order-kits { grid-template-columns: 1fr; gap: 2px; }
+    .science-steps::before { display: none; }
+    .cells-grid { grid-template-columns: 1fr; }
+    .cells-diagram { position: static; }
+    footer { grid-template-columns: 1fr 1fr; padding: 3rem 2.5rem; }
+    .quote-band { padding: 4rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Last<span>Supper</span></a>
+  <ul class="nav-links">
+    <li><a href="#science">The Science</a></li>
+    <li><a href="#planet">Planet</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta">Reserve Your Kit</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Cellular Agriculture · Est. 2026</p>
+    <h1 class="hero-headline">
+      Meat,<br/><em>reimagined</em><br/>from the cell up.
+    </h1>
+    <p class="hero-sub">
+      Last Supper grows real, genuine animal meat — without the animal. 
+      Mail us a sample. We cultivate a culture. You eat the future. 
+      No farms. No feedlots. No guilt.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary"><span>Order Your Culture Kit</span></button>
+      <a href="#science" class="btn-link">
+        The Science
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="petri-grid">
+        <div class="petri gold"><div class="petri-inner"></div></div>
+        <div class="petri"><div class="petri-inner"></div></div>
+        <div class="petri light"><div class="petri-inner"></div></div>
+        <div class="petri gold"><div class="petri-inner"></div></div>
+        <div class="petri"><div class="petri-inner"></div></div>
+        <div class="petri light"><div class="petri-inner"></div></div>
+        <div class="petri gold"><div class="petri-inner"></div></div>
+        <div class="petri"><div class="petri-inner"></div></div>
+        <div class="petri light"><div class="petri-inner"></div></div>
+        <div class="petri"><div class="petri-inner"></div></div>
+        <div class="petri gold"><div class="petri-inner"></div></div>
+        <div class="petri light"><div class="petri-inner"></div></div>
+      </div>
+    </div>
+    <div class="hero-right-label">Cultures</div>
+    <div class="hero-stat-bar">
+      <div class="hero-stat">
+        <div class="hero-stat-num">99%</div>
+        <div class="hero-stat-label">less land use</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">96%</div>
+        <div class="hero-stat-label">less water</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">animals harmed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Cellular Agriculture</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Mail-Order Cultures</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Zero Slaughter</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Bioreactor Crafted</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">iPSC Technology</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">FDA Compliant</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Serum-Free Media</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Planet Positive</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Cellular Agriculture</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Mail-Order Cultures</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Zero Slaughter</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Bioreactor Crafted</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">iPSC Technology</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">FDA Compliant</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Serum-Free Media</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Planet Positive</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro-strip" id="intro">
+  <div class="intro-left reveal">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Real meat. <em>Real science.</em><br/>Zero compromise.</h2>
+    <div class="intro-body">
+      <p>
+        Last Supper is the world's first mail-order cultured meat service for 
+        personal cultures. You send us a tiny biopsy sample — we do the rest. 
+        Our centralized laboratory expands your cells into edible muscle tissue 
+        using the same biology your body uses to heal itself.
+      </p>
+      <p>
+        No factory farms. No antibiotics. No horror. Just science, a really 
+        good bioreactor, and a very elegant dinner party conversation starter.
+      </p>
+    </div>
+  </div>
+  <div class="intro-right reveal">
+    <div class="intro-card">
+      <div class="intro-card-icon">🧬</div>
+      <div class="intro-card-title">Genuine Tissue</div>
+      <div class="intro-card-text">Real skeletal muscle and fat cells — genetically identical to a traditional cut. Because it <em>is</em> that cut, just without the farm.</div>
+    </div>
+    <div class="intro-card">
+      <div class="intro-card-icon">📦</div>
+      <div class="intro-card-title">Mail-Order Simple</div>
+      <div class="intro-card-text">A sterile collection kit arrives at your door. You send back your sample. Six weeks later, your culture ships back ready to cook.</div>
+    </div>
+    <div class="intro-card">
+      <div class="intro-card-icon">⚗️</div>
+      <div class="intro-card-title">Lab Precision</div>
+      <div class="intro-card-text">Each batch is cultivated in modular wave bioreactors — sealed, sterile, and entirely separate so your culture never meets anyone else's.</div>
+    </div>
+    <div class="intro-card">
+      <div class="intro-card-icon">🌍</div>
+      <div class="intro-card-title">Planetary Sanity</div>
+      <div class="intro-card-text">Up to 92% lower greenhouse gas emissions vs conventional beef. Grown on a fraction of the land, using a fraction of the water.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="science" id="science">
+  <div class="reveal">
+    <p class="section-label">The Biology</p>
+    <h2 class="section-title">From one cell<br/>to <em>your table.</em></h2>
+    <p class="science-intro">
+      Cultivated meat isn't a substitute — it's the real thing, produced through 
+      a four-step bioprocess that mirrors your body's own tissue regeneration. 
+      Here's how a pinhead-sized sample becomes a proper meal.
+    </p>
+  </div>
+
+  <div class="science-steps reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Cell Collection</div>
+      <div class="step-text">A non-invasive biopsy retrieves satellite cells — the adult stem cells your muscles already use to repair themselves. A few milligrams is all we need.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Reprogramming</div>
+      <div class="step-text">Cells are coaxed into induced pluripotent stem cells (iPSCs) — reverting them to a state capable of unlimited, stable proliferation without genetic instability.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Proliferation</div>
+      <div class="step-text">In serum-free, plant-based media, cells multiply exponentially inside wave-mixed bioreactors. One gram of starter tissue yields several kilograms of edible product.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Differentiation & Structure</div>
+      <div class="step-text">Cells are guided onto 3D scaffolds of soy-protein fibrils and plant cellulose, differentiating into muscle, fat, and connective tissue — creating genuine texture and flavour.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANET -->
+<section class="planet" id="planet">
+  <div class="planet-visual reveal">
+    <div class="planet-ring">
+      <!-- outer ring -->
+      <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="170" cy="170" r="158" stroke="#4A7C59" stroke-width="1" stroke-dasharray="6 14"/>
+        <circle cx="170" cy="170" r="130" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="3 22"/>
+      </svg>
+      <!-- inner ring -->
+      <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="170" cy="170" r="108" stroke="#4A7C59" stroke-width="1.5" stroke-dasharray="4 8"/>
+      </svg>
+      <div class="planet-center">
+        <div class="planet-big-num">92%</div>
+        <div class="planet-big-label">lower GHG emissions</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="planet-right reveal">
+    <p class="section-label">For the Planet</p>
+    <h2 class="section-title">The most <em>efficient</em><br/>protein ever made.</h2>
+    <div class="stat-rows">
+      <div class="stat-row">
+        <div class="stat-row-label">
+          Land Use Reduction
+          <span>vs. conventional beef farming</span>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:99%"></div></div>
+          <div class="stat-pct">99%</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">
+          Water Consumption
+          <span>reduction in gallons per kilogram</span>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:96%"></div></div>
+          <div class="stat-pct">96%</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">
+          Greenhouse Gas Emissions
+          <span>vs. traditional livestock</span>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:92%"></div></div>
+          <div class="stat-pct">92%</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">
+          Energy Efficiency Gain
+          <span>from precision fermentation media</span>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:78%"></div></div>
+          <div class="stat-pct">78%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-band">
+  <p class="quote-text">
+    "The livestock sector accounts for 14.5% of global greenhouse gas emissions. 
+    Cultivated meat grown in a controlled bioreactor could be humanity's 
+    most elegant exit from that equation."
+  </p>
+  <p class="quote-attr">— Based on FAO data & peer-reviewed cellular agriculture research</p>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-header reveal">
+    <p class="section-label">The Process</p>
+    <h2 class="section-title">As simple as sending <em>a letter.</em></h2>
+    <p class="how-body">
+      We've distilled the complexity of cellular agriculture into a service 
+      a child could order (though the regulatory paperwork would make them cry).
+      Here's the three-step journey from biopsy to bite.
+    </p>
+  </div>
+
+  <div class="how-steps reveal">
+    <div class="how-step">
+      <span class="how-step-icon">📬</span>
+      <div class="how-step-tag">Step One</div>
+      <div class="how-step-title">Order Your<br/>Collection Kit</div>
+      <div class="how-step-text">
+        We ship you a physician-grade sterile collection kit with everything needed for a small skin or muscle biopsy. Your doctor collects a sample about the size of a grain of rice. It's packaged in our triple-layer UN3373 compliant container, then shipped overnight to our Indiana lab in cold chain conditions.
+      </div>
+    </div>
+    <div class="how-step">
+      <span class="how-step-icon">🔬</span>
+      <div class="how-step-tag">Step Two</div>
+      <div class="how-step-title">We Grow<br/>Your Culture</div>
+      <div class="how-step-text">
+        Our scientists isolate and reprogram your cells to iPSC state, then expand them in a dedicated, single-use modular bioreactor — fully sealed to prevent any cross-contamination. Your cells are differentiated onto plant-based scaffolds using serum-free growth media. The whole process takes approximately 4–6 weeks.
+      </div>
+    </div>
+    <div class="how-step">
+      <span class="how-step-icon">🍽️</span>
+      <div class="how-step-tag">Step Three</div>
+      <div class="how-step-title">Your Culture,<br/>Delivered</div>
+      <div class="how-step-text">
+        Your completed culture is harvested, lab-tested for safety and purity, vacuum-sealed, and shipped to you in premium cold packaging. Accompanied by preparation notes written by our culinary team. Eat it. Serve it. Marvel at the civilizational leap you just took to dinner.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CELLS EXPLAINER -->
+<section class="cells">
+  <div class="reveal">
+    <p class="section-label">Inside the Lab</p>
+    <h2 class="section-title">The architecture<br/>of <em>real meat.</em></h2>
+  </div>
+  <div class="cells-grid reveal">
+    <div class="cells-items">
+      <div class="cell-item">
+        <div class="cell-item-head">
+          <div class="cell-item-name">Satellite Cells & iPSCs</div>
+          <div class="cell-item-arrow">+</div>
+        </div>
+        <p class="cell-item-desc">We begin with your body's own muscle repair cells — satellite cells. These are reprogrammed into induced pluripotent stem cells (iPSCs), giving them unlimited proliferative capacity while preserving your genetic identity. No tumour risk. No instability. Just faithful replication.</p>
+      </div>
+      <div class="cell-item">
+        <div class="cell-item-head">
+          <div class="cell-item-name">Serum-Free Culture Media</div>
+          <div class="cell-item-arrow">+</div>
+        </div>
+        <p class="cell-item-desc">Forget fetal bovine serum — that's 2010. Our plant-derived basal medium is enriched with recombinant growth factors (FGF-2, TGF-β expressed in E. coli) and microalgae-sourced lipids for marbling. Rich in nutrition, free of ethical compromise, and cheaper per litre every year.</p>
+      </div>
+      <div class="cell-item">
+        <div class="cell-item-head">
+          <div class="cell-item-name">3D Scaffold Architecture</div>
+          <div class="cell-item-arrow">+</div>
+        </div>
+        <p class="cell-item-desc">Cells don't make steak on their own — they need structure. We use soy-protein amyloid fibrils and cellulose nanofibers as scaffolding, guiding myocytes and adipocytes into layered tissue that produces genuine mouthfeel, marbling, and chew. No animal-derived gelatin required.</p>
+      </div>
+      <div class="cell-item">
+        <div class="cell-item-head">
+          <div class="cell-item-name">Wave-Mixed Bioreactors</div>
+          <div class="cell-item-arrow">+</div>
+        </div>
+        <p class="cell-item-desc">Each client culture grows in its own dedicated single-use rocking bioreactor — a sealed, disposable bag system that eliminates cross-contamination risk. Gentle rocking mimics the shear conditions of a living body while minimising cell damage. Scalable, clean, and modular by design.</p>
+      </div>
+    </div>
+    <div class="cells-diagram">
+      <div class="diagram-title">Bioprocess Timeline</div>
+      <div class="diagram-stages">
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Sample Receipt & Quality Check</div>
+          <div class="d-metric">Day 1</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Cell Isolation & iPSC Reprogramming</div>
+          <div class="d-metric">Days 2–7</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Expansion & Proliferation Phase</div>
+          <div class="d-metric">Days 8–21</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Scaffold Seeding & Differentiation</div>
+          <div class="d-metric">Days 22–35</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Maturation & Structural Development</div>
+          <div class="d-metric">Days 36–40</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Harvest, QA & Pathogen Testing</div>
+          <div class="d-metric">Days 41–43</div>
+        </div>
+        <div class="diagram-stage">
+          <div class="d-dot"></div>
+          <div class="d-label">Cold-Chain Packaging & Delivery</div>
+          <div class="d-metric">Day 44</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order" id="order">
+  <p class="section-label">Culture Kits</p>
+  <h2 class="section-title">Choose your <em>first supper.</em></h2>
+  <p class="order-sub">
+    Three tiers. One destiny. All cultures arrive with a certificate of authenticity, 
+    a culinary preparation guide, and the quiet satisfaction of having done something 
+    genuinely good for the planet.
+  </p>
+
+  <div class="order-kits reveal">
+    <div class="kit">
+      <div class="kit-tier">Tier I · Introductory</div>
+      <div class="kit-name">The Mortal</div>
+      <div class="kit-tagline">Your first communion with the future.</div>
+      <ul class="kit-features">
+        <li>Sterile collection kit & physician guide</li>
+        <li>Single culture batch (approx. 200g)</li>
+        <li>Modular wave bioreactor cultivation</li>
+        <li>Serum-free, plant-based growth media</li>
+        <li>Standard safety & purity testing</li>
+        <li>Cold-chain delivery + prep notes</li>
+      </ul>
+      <div class="kit-price">$490 <span>/ culture</span></div>
+    </div>
+    <div class="kit">
+      <div class="kit-tier">Tier II · Reserved</div>
+      <div class="kit-name">The Apostle</div>
+      <div class="kit-tagline">For those who prefer a standing reservation.</div>
+      <ul class="kit-features">
+        <li>Everything in The Mortal</li>
+        <li>Cell line banking — your culture on file</li>
+        <li>Quarterly production runs (800g each)</li>
+        <li>Priority bioreactor scheduling</li>
+        <li>3D scaffold upgrade for superior texture</li>
+        <li>Extended genomic stability testing</li>
+        <li>Dedicated client liaison</li>
+      </ul>
+      <div class="kit-price">$1,800 <span>/ year</span></div>
+    </div>
+    <div class="kit">
+      <div class="kit-tier">Tier III · Provenance</div>
+      <div class="kit-name">The Last Supper</div>
+      <div class="kit-tagline">Fully bespoke. Deeply peculiar. Entirely yours.</div>
+      <ul class="kit-features">
+        <li>Full cell line development & iPSC banking</li>
+        <li>Custom differentiation protocol</li>
+        <li>Exotic species culture available</li>
+        <li>Monthly production — up to 2kg per run</li>
+        <li>Bespoke scaffold & marbling specification</li>
+        <li>White-glove cold delivery, chef-ready</li>
+        <li>Regulatory consultation included</li>
+      </ul>
+      <div class="kit-price">$6,000 <span>/ year</span></div>
+    </div>
+  </div>
+
+  <div class="order-cta-row">
+    <button class="btn-primary"><span>Reserve Your Culture Kit</span></button>
+    <button class="btn-ghost">Download Lab Overview</button>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-left reveal">
+    <p class="section-label">Questions</p>
+    <h2 class="section-title">We've heard<br/>them <em>all.</em></h2>
+    <p class="faq-body">
+      The science is sound. The ethics are spotless. But yes, we understand 
+      you have questions. The good news is most of them have delightful answers.
+    </p>
+  </div>
+  <div class="faq-items reveal">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is this actually real meat, or a substitute?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Completely real. Cultivated meat is genuine animal tissue grown from actual cells — not plant protein, not soy-shaped patties. The cells are biologically identical to those in conventionally farmed meat. The only difference is that no animal was raised or slaughtered. Think of it as meat produced via biology rather than agriculture.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How does shipping a biological sample work?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Your collected sample is classified as a Category B Biological Substance (UN3373) and packaged in a triple-layer system: a sealed primary vial, a secondary biohazard bag with absorbent material, and a rigid insulated outer container. All transport is fully compliant with DOT and IATA regulations. It ships overnight on dry ice and arrives at our Indiana lab within 24 hours of collection.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Could my culture be mixed up with someone else's?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Categorically no. Every culture is grown in a dedicated single-use bioreactor bag — sealed, barcoded, and individually tracked through our LIMS (Laboratory Information Management System) from receipt to shipment. We also conduct genetic identity verification testing on final product batches to confirm provenance. Your culture is yours, exclusively.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is this FDA approved? How is it regulated?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Cultivated meat is regulated under a joint FDA/USDA framework established in 2019. The FDA oversees cell collection, banking, and the cultivation process. For our mail-order personal culture service, we operate under the FDA's sole jurisdiction, having completed a voluntary premarket consultation and received a no-questions letter. We are fully registered, inspected, and operating within federal and Indiana state food safety frameworks.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What does it actually taste like?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Like meat. Because it is meat. The flavour profile of cultivated tissue is functionally identical to its farmed equivalent — the Maillard reaction, fat rendering, protein denaturation all behave the same way. Our scaffold architecture and microalgae-sourced lipids give the tissue genuine marbling, which means proper browning, genuine umami, and a texture that a blind tasting cannot distinguish from a well-raised conventional cut.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What's the actual environmental benefit?
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        Considerable. Conventional beef produces approximately 60kg of CO₂-equivalent per kilogram of protein. Cultivated meat in an optimised facility produces under 5kg. Land use drops by up to 99% — the land required to grow feed, raise, and process a herd simply disappears. Water consumption falls by around 96%. As our energy mix shifts toward renewables, these numbers improve further. It is, without hyperbole, the most resource-efficient way to produce animal protein.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">Last<span>Supper</span></div>
+    <p class="footer-tagline">Cellular agriculture for the<br/>discerning omnivore. Fort Wayne, Indiana.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Science</div>
+    <ul class="footer-links">
+      <li><a href="#">Cell Biology</a></li>
+      <li><a href="#">Bioreactor Design</a></li>
+      <li><a href="#">Scaffold Technology</a></li>
+      <li><a href="#">Research Papers</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Company</div>
+    <ul class="footer-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Lab & Facility</a></li>
+      <li><a href="#">Regulatory</a></li>
+      <li><a href="#">Press</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Order</div>
+    <ul class="footer-links">
+      <li><a href="#">Culture Kits</a></li>
+      <li><a href="#">The Mortal</a></li>
+      <li><a href="#">The Apostle</a></li>
+      <li><a href="#">The Last Supper</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Last Supper Inc. All cultures reserved.</p>
+    <p class="footer-disclaimer">
+      Last Supper operates under FDA premarket consultation and USDA compliance. 
+      All biological material handled per DOT/IATA UN3373 regulations.
+      Culture kits available to US residents only.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(r => obs.observe(r));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 40
+      ? '0 2px 32px rgba(28,53,40,0.08)'
+      : 'none';
+  });
+</script>
+</body>
+</html>
