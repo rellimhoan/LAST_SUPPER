@@ -391,7 +391,12 @@
   .intro-card:hover { background: var(--ivory); }
 
   .intro-card-icon {
-    font-size: 2rem; margin-bottom: 1rem;
+    width: 36px; height: 36px; margin-bottom: 1.2rem;
+    color: var(--gold);
+  }
+
+  .intro-card-icon svg {
+    width: 100%; height: 100%;
   }
 
   .intro-card-title {
@@ -1157,22 +1162,57 @@
   </div>
   <div class="intro-right reveal">
     <div class="intro-card">
-      <div class="intro-card-icon">🧬</div>
+      <div class="intro-card-icon">
+        <!-- DNA / cell helix -->
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M10 4c2 4 14 4 16 8s-14 4-16 8 14 4 16 8"/>
+          <path d="M10 4c-2 4 14 4 16 8s-14 4-16 8 14 4 16 8" opacity=".35"/>
+          <line x1="12.5" y1="9.5" x2="23.5" y2="9.5" opacity=".5"/>
+          <line x1="12.5" y1="18" x2="23.5" y2="18" opacity=".5"/>
+          <line x1="12.5" y1="26.5" x2="23.5" y2="26.5" opacity=".5"/>
+        </svg>
+      </div>
       <div class="intro-card-title">Genuine Tissue</div>
       <div class="intro-card-text">Real skeletal muscle and fat cells — genetically identical to a traditional cut. Because it <em>is</em> that cut, just without the farm.</div>
     </div>
     <div class="intro-card">
-      <div class="intro-card-icon">📦</div>
+      <div class="intro-card-icon">
+        <!-- Package / envelope -->
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="10" width="26" height="18" rx="1"/>
+          <path d="M5 10l13 10L31 10"/>
+          <line x1="5" y1="28" x2="13" y2="20"/>
+          <line x1="31" y1="28" x2="23" y2="20"/>
+        </svg>
+      </div>
       <div class="intro-card-title">Mail-Order Simple</div>
       <div class="intro-card-text">A sterile collection kit arrives at your door. You send back your sample. Six weeks later, your culture ships back ready to cook.</div>
     </div>
     <div class="intro-card">
-      <div class="intro-card-icon">⚗️</div>
+      <div class="intro-card-icon">
+        <!-- Flask / beaker -->
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 4v12L5 28a2 2 0 001.8 3h22.4A2 2 0 0031 28L23 16V4"/>
+          <line x1="11" y1="4" x2="25" y2="4"/>
+          <circle cx="13" cy="24" r="1.2" fill="currentColor" stroke="none" opacity=".6"/>
+          <circle cx="20" cy="26.5" r="1" fill="currentColor" stroke="none" opacity=".4"/>
+          <circle cx="17" cy="22" r=".8" fill="currentColor" stroke="none" opacity=".5"/>
+        </svg>
+      </div>
       <div class="intro-card-title">Lab Precision</div>
       <div class="intro-card-text">Each batch is cultivated in modular wave bioreactors — sealed, sterile, and entirely separate so your culture never meets anyone else's.</div>
     </div>
     <div class="intro-card">
-      <div class="intro-card-icon">🌍</div>
+      <div class="intro-card-icon">
+        <!-- Leaf / planet -->
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="18" cy="18" r="13"/>
+          <path d="M5 18h26"/>
+          <path d="M18 5c-4 4-6 8-6 13s2 9 6 13"/>
+          <path d="M18 5c4 4 6 8 6 13s-2 9-6 13"/>
+          <path d="M7 11h22M7 25h22" opacity=".4"/>
+        </svg>
+      </div>
       <div class="intro-card-title">Planetary Sanity</div>
       <div class="intro-card-text">Up to 92% lower greenhouse gas emissions vs conventional beef. Grown on a fraction of the land, using a fraction of the water.</div>
     </div>
@@ -1578,7 +1618,7 @@
     </ul>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 Last Supper Inc. All cultures reserved.</p>
+    <p class="footer-copy">© 2026 Last Supper Inc. All cultures reserved.</p>
     <p class="footer-disclaimer">
       Last Supper operates under FDA premarket consultation and USDA compliance. 
       All biological material handled per DOT/IATA UN3373 regulations.
